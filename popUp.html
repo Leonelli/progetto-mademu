@@ -1,0 +1,355 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Contatti|MaDe - School Cooperation</title>
+    <!-- SEO -->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!-- PUBBLICA STYLE -->
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+    <link href="../css/visual_style.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- COLLEGAMETNI jQery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- END INFO HEAD -->
+
+    <style>
+        /*STILE POPUP*/
+        .modalWindow {
+            margin-left: 415px;
+            margin-right: 415px;
+            background-color: black;
+            z-index: 99999;
+            opacity: 0;
+            pointer-events: none;
+            width: 1089px;
+        }
+
+            .modalWindow:target {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+        /*STILE SFONDO*/
+        #sfondo {
+            width: 100%;
+            height: 1500px;
+            background-color: rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
+        /*STILE SUPERIORE*/
+        #superiore {
+            margin: 0 auto;
+            margin-bottom: -100px;
+            background-color: black;
+            height: 100px;
+        }
+
+        #contX {
+            margin-left: 960px;
+            padding-top: 17px;
+        }
+        /*STILE SIDEBAR*/
+        #sideBar {
+            width: 181px;
+            height: 1196px;
+            background-color: black;
+            float: left;
+            display: inline-block;
+        }
+
+        .centrato {
+            width: 727px;
+            float: left;
+            display: inline-block;
+        }
+        /*STILE IMMAGINE*/
+        #immagine {
+            height: 400px;
+            margin-top: 100px;
+            background-color: red;
+        }
+
+        /*STILE PRIMI 3 DIV*/
+        #intestazione {
+            height: 90px;
+            padding-left: 52px;
+            padding-right: 20px;
+            padding-top: 5px;
+            background-color: black;
+        }
+
+            #intestazione .titolo {
+                color: red;
+                margin: 0;
+            }
+
+            #intestazione .testo {
+                color: white;
+                margin: 10px;
+            }
+        /*STILE DIV DA QUATTRO DIV*/
+        #quattro {
+            height: 100px;
+            background-color: black;
+            padding-left: 52px;
+        }
+
+        /*STILE DIV DOPPIO*/
+        #doppio {
+            margin: 0;
+            width: 282px;
+            float: left;
+            display: inline-block;
+        }
+
+            #doppio .titolo {
+                color: red;
+                margin: 0;
+                padding-top: 10px;
+            }
+
+            #doppio .testo {
+                color: white;
+                margin: 0;
+            }
+
+
+        /*STILE SPAZIATORE*/
+        #spaziatore {
+            width: 59px;
+            height: 100px;
+            background-color: black;
+            float: left;
+            display: inline-block;
+        }
+
+        /*STILE SEPARATORI*/
+        #separatore {
+            background-color: #666666;
+            margin: 0;
+        }
+
+        #separatoreP {
+            width: 333px;
+            margin-top: 120px;
+            background-color: #666666;
+            margin: -1px;
+            float: left;
+            display: inline-block;
+        }
+        /*STILE ULTIMO DIV CON PARAGRAFI ALLINEATI*/
+        #ultimo {
+            height: 200px;
+            padding-top: 5px;
+            background-color: black;
+        }
+
+            #ultimo p {
+                float: left;
+                display: inline-block;
+                margin: 0;
+            }
+
+            #ultimo .titolo {
+                color: red;
+            }
+
+            #ultimo .testo {
+                color: white;
+                padding-left: 10px;
+            }
+
+        /*STILE DIV DOPPIO (SX e DX) FONDO */
+        #doppioU {
+            padding-left: 52px;
+            margin: 0;
+            width: 282px;
+            float: left;
+            display: inline-block;
+        }
+
+            #doppioU .titolo {
+                color: red;
+                margin: 0;
+            }
+
+            #doppioU .testo {
+                color: white;
+                margin: 0;
+            }
+
+            #doppioU table tr {
+                padding-top: 50px;
+            }
+
+        #contFreccia {
+            margin-left: 50px;
+            margin-top: 270px;
+        }
+    </style>
+
+</head>
+<body style="background-color: #64ff64;margin: 0px 0px 0px 0px;">
+    <a href="#openModal">Click me to open modal window</a>
+
+    <!--STRUTTURA POPUP-->
+    <div id="sfondo">
+        <div id="openModal" class="modalWindow">
+
+            <!--BARRA SUPERIORE-->
+            <div id="superiore">
+                <div id="contX">
+                    <img src="back.png" />
+                </div>
+            </div>
+
+            <!--BARRA LATERALE SINISTRA-->
+            <div id="sideBar">
+                <div id="contFreccia">
+                    <img src="back.png" />
+                </div>
+            </div>
+
+            <!--BARRA CENTRALE-->
+            <div class="centrato">
+
+
+
+                <!--IMMAGINE-->
+                <div id="immagine"></div>
+
+                <!--TITOLO-->
+                <div id="intestazione">
+                    <p class="titolo"><b>Titolo</b> del soggetto</p>
+                    <p class="testo">GHIACCIAIO DELL'ADAMELLO</p>
+                </div>
+                <hr id="separatore" />
+
+                <!--INTESTAZIONE-->
+                <div id="intestazione">
+                    <p class="titolo"><b>Intestazione</b></p>
+                    <p class="testo">PANORAMA DEL GHIACCIAIO DELL'ADAMELLO, TRA IL CORNO DI BEDOLE E MONTE DEIFRATI, DA CIMA VALBIOLO, DISTANTE CIRCA 15 CHILOMETRI</p>
+                </div>
+                <hr id="separatore" />
+
+                <!--IDENTIFICAZIONE-->
+                <div id="intestazione">
+                    <p class="titolo"><b>Identificazione</b> del soggetto</p>
+                    <p class="testo">PANORAMA DEL GHIACCIAIO DELL'ADAMELLO, TRA IL CORNO DI BEDOLE E MONTE DEI FRATI</p>
+                </div>
+                <hr id="separatore" />
+
+                <!--DATA, COLLOCAZIONE e NUMERO DI INVENTARIO-->
+                <div id="quattro">
+                    <!--DATA-->
+                    <div id="doppio">
+                        <p class="titolo"><b>Data</b></p>
+                        <table style="width:100%">
+                            <tr>
+                                <td class="titolo">da</td>
+                                <td class="testo" style="padding-top:10px">12/01/1998</td>
+                                <td class="titolo">validità</td>
+                                <td class="testo" style="padding-top:10px">presunta</td>
+                            </tr>
+                            <tr>
+                                <td class="titolo">a</td>
+                                <td class="testo" style="padding-top:10px">12/01/2001</td>
+                                <td class="titolo">validità</td>
+                                <td class="testo" style="padding-top:10px">post</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!--SPAZIATORE-->
+                    <div id="spaziatore"> </div>
+
+                    <!--COLLOCAZIONE e NUMERO DI INVENTARIO-->
+                    <div div id="doppio" style="padding-left:52px">
+
+                        <!--COLLOCAZIONE-->
+                        <div>
+                            <p class="titolo"><b>Collocazione</b></p>
+                            <p class="testo">Album 123</p>
+                        </div>
+
+                        <!--NUMERO DI INVENTARIO-->
+                        <div>
+                            <p class="titolo"><b>Numero di inventario</b></p>
+                            <p class="testo">53</p>
+                        </div>
+                    </div>
+                </div>
+                <hr id="separatoreP" /><hr id="separatoreP" style="margin-left:393px" />
+                <!--FONDO, DESCRIZIONE e SPECIFICHE OGGETTO-->
+                <div id="quattro">
+                    <!--FONDO-->
+                    <div id="doppio">
+                        <p class="titolo"><b>Fondo</b></p>
+                        <p class="testo">SCUOLA MEDIA ELEMENTARE DI BRONI (PAVIA)</p>
+                    </div>
+                    <!--SPAZIATORE-->
+                    <div id="spaziatore">
+
+                    </div>
+                    <!--DESCRIZIONE e SPECIFICHE OGGETTO-->
+                    <div div id="doppio" style="padding-left:52px">
+
+                        <!--DESCRIZIONE-->
+                        <div>
+                            <p class="titolo"><b>Descrizione oggetto</b></p>
+                            <p class="testo">fotografia</p>
+                        </div>
+
+                        <!--SPECIFICHE-->
+                        <div>
+                            <p class="titolo"><b>Specifiche oggetto</b></p>
+                            <p class="testo">fotografia digitale</p>
+                        </div>
+                    </div>
+                </div>
+                <hr id="separatoreP" /><hr id="separatoreP" style="margin-left:393px" />
+
+                <!--ULTIMO DIV INFORMAZIONI-->
+                <div id="ultimo">
+                    <p class="titolo" style="padding-left: 52px;">Osservazioni</p><p class="testo">FOTOGRAFIA TAGLIATA NELL'ANGOLO SUPERIORE SINISTRO</p>
+
+                    <!--DIV LATERALE SINISTRO-->
+                    <div id="doppioU">
+                        <table style="width:100%">
+                            <tr><td><p class="titolo">Numero di negativo</p><p class="testo">638</p></td></tr>
+                            <tr><td><p class="titolo">Serie identificazione</p><p class="testo">AAAAA</p></td></tr>
+                            <tr><td><p class="titolo">Titolo</p><p class="testo">TITOLO DELLE SERIE DI FOTOGRAFIE</p></td></tr>
+                            <tr><td><p class="titolo">Condizione generica</p><p class="testo">BUONA</p></td></tr>
+                        </table>
+                    </div>
+
+                    <!--SPAZIATORE-->
+                    <div id="spaziatore" style="height:125px;"> </div>
+
+                    <!--DIV LATERALE DESTRO-->
+                    <div id="doppioU">
+                        <table style="width:100%">
+                            <tr><td><p class="titolo">Altri formati</p><p class="testo">NO</p></td></tr>
+                            <tr><td><p class="titolo"># ordine</p><p class="testo">425</p></td></tr>
+                            <tr><td><p class="titolo">vuoto</p><p class="testo">VUOTO</p></td></tr>
+                            <tr><td><p class="titolo">Copyright</p><p class="testo">LIBERO</p></td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <hr id="separatore" style="margin-top:-30px;" />
+
+
+            <!--BARRA LATERALE DESTRA-->
+            <div id="sideBar" style="margin-top: -2px;">
+                <div id="contFreccia">
+                    <img src="next.png" />
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

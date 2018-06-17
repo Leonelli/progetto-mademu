@@ -1,0 +1,337 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Contatti|MaDe - School Cooperation</title>
+    <!-- SEO -->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!-- PUBBLICA STYLE -->
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+    <link href="../css/visual_style.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+	<meta http-equiv="Refresh" content="5;url=index.html">
+    <style>
+        #pagina {
+            background-size: 100%;
+            background-color: #ff0000;
+            font-size: 100%;
+        }
+
+        #cont {
+            width: 68em;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        #centro {
+            width: 100%;
+            padding-top: 12%;
+            margin: 0 auto;
+            text-align: center;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        @media only screen and (min-width: 0px) and (max-width: 320px) {
+            #errore_numero {
+                font-size: 11em;
+                color: white;
+                margin-top: -4%;
+                margin-left: -71%;
+                display: block;
+            }
+
+            #errore_scritta {
+                display: block;
+                width: 37%;
+                font-size: 2em;
+                color: white;
+                margin-left: -4%;
+                margin-top: -20%;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+
+            #errore_spiegazione {
+                font-size: 1em;
+                display: block;
+                color: white;
+                margin-top: -3%;
+                margin-left: 3%;
+                letter-spacing: -0.08em;
+                width: 23%;
+            }
+        }
+
+        @media only screen and (min-width: 321px) and (max-width: 480px) {
+            #errore_numero {
+                font-size: 10em;
+                color: white;
+                margin-top: -10%;
+                margin-left: -72%;
+                display: block;
+            }
+
+            #errore_scritta {
+                display: block;
+                width: 36%;
+                font-size: 1.1em;
+                color: white;
+                margin-top: -18%;
+                text-transform: uppercase;
+                margin-left: -4%;
+                letter-spacing: 2px;
+            }
+
+            #errore_spiegazione {
+                font-size: 1em;
+                display: block;
+                color: white;
+                margin-top: -2%;
+                letter-spacing: -0.08em;
+                width: 28%;
+                line-height: 110%;
+            }
+        }
+
+        @media only screen and (min-width: 481px) and (max-width: 600px) {
+            #errore_numero {
+                font-size: 8em;
+                color: white;
+                margin-top: -12%;
+                margin-left: -71%;
+                display: block;
+            }
+
+            #errore_scritta {
+                display: block;
+                width: 30%;
+                font-size: 1.1em;
+                color: white;
+                margin-top: -14%;
+                margin-left: -1%;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+
+            #errore_spiegazione {
+                font-size: 1em;
+                display: block;
+                color: white;
+                margin-top: -1.5%;
+                letter-spacing: -0.06em;
+                width: 23%;
+                line-height: 90%;
+                margin-left: 3%;
+            }
+        }
+
+        @media only screen and (min-width: 601px) and (max-width: 768px) {
+            #errore_numero {
+                font-size: 7em;
+                color: white;
+                margin-top: -13%;
+                margin-left: -71%;
+                display: block;
+            }
+
+            #errore_scritta {
+                display: block;
+                width: 30%;
+                font-size: 1.1em;
+                color: white;
+                margin-top: -13%;
+                margin-left: -1%;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+
+            #errore_spiegazione {
+                font-size: 1em;
+                display: block;
+                color: white;
+                margin-top: -1.5%;
+                letter-spacing: -0.06em;
+                width: 23%;
+                line-height: 90%;
+                margin-left: 3%;
+            }
+        }
+
+        @media only screen and (min-width: 769px) and (max-width: 800px) {
+            #errore_numero {
+                font-size: 7em;
+                color: white;
+                margin-top: -13%;
+                margin-left: -73%;
+                display: block;
+            }
+
+            #errore_scritta {
+                display: block;
+                width: 37%;
+                font-size: 2em;
+                color: white;
+                margin-top: -18%;
+                text-transform: uppercase;
+                margin-left: -4%;
+                letter-spacing: 2px;
+            }
+
+            #errore_spiegazione {
+                font-size: 1em;
+                display: block;
+                color: white;
+                margin-top: -3%;
+                letter-spacing: -0.08em;
+                width: 28%;
+            }
+        }
+
+        @media only screen and (min-width: 801px) and (max-width: 1024px) {
+            #errore_numero {
+                font-size: 5em;
+                color: white;
+                margin-top: -13%;
+                margin-left: -73%;
+                display: block;
+            }
+
+            #errore_scritta {
+                display: block;
+                width: 37%;
+                font-size: 1.1em;
+                color: white;
+                margin-top: -9%;
+                margin-left: -4%;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+
+            #errore_spiegazione {
+                font-size: 0.6em;
+                display: block;
+                color: white;
+                margin-top: -2%;
+                letter-spacing: -0.05em;
+                margin-left: 5%;
+                width: 18%;
+                line-height: 98%;
+            }
+        }
+
+        @media only screen and (min-width: 1025px) and (max-width: 1280px) {
+            #errore_numero {
+                font-size: 5em;
+                color: white;
+                margin-top: -13%;
+                margin-left: -84%;
+                display: block;
+            }
+
+            #errore_scritta {
+                display: block;
+                width: 37%;
+                font-size: 1.1em;
+                color: white;
+                margin-top: -9%;
+                margin-left: -10%;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+
+            #errore_spiegazione {
+                font-size: 0.6em;
+                display: block;
+                color: white;
+                margin-top: -2%;
+                letter-spacing: -0.05em;
+                margin-left: -1%;
+                width: 18%;
+                line-height: 98%;
+            }
+        }
+
+        @media only screen and (min-width: 1281px) and (max-width: 1440px) {
+            #errore_numero {
+                font-size: 6em;
+                color: white;
+                margin-top: -14%;
+                margin-left: -95%;
+                display: block;
+            }
+
+            #errore_scritta {
+                display: block;
+                width: 37%;
+                font-size: 1.1em;
+                color: white;
+                margin-top: -11%;
+                margin-left: -16%;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+
+            #errore_spiegazione {
+                font-size: 0.6em;
+                display: block;
+                color: white;
+                margin-top: -2%;
+                letter-spacing: -0.05em;
+                margin-left: -7%;
+                width: 18%;
+                line-height: 98%;
+            }
+        }
+
+        @media only screen and (min-width: 1441px){
+            #errore_numero {
+                font-size: 32em;
+                color: white;
+                margin-top: -9%;
+                display: block;
+            }
+
+            #errore_scritta {
+                display: block;
+                width: 133%;
+                font-size: 6em;
+                color: white;
+                margin-top: -59%;
+                margin-left: -15%;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+
+            #errore_spiegazione {
+                font-size: 5em;
+                display: block;
+                color: white;
+                margin-top: -9%;
+                letter-spacing: -0.05em;
+                margin-left: -10%;
+                width: 125%;
+                line-height: 98%;
+            }
+        }
+    </style>
+
+    <!-- COLLEGAMETNI jQery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- END INFO HEAD -->
+</head>
+<body id="pagina">
+    <!-- HEADER -->
+    <!-- \\\\\\\\\\\ -->
+
+    <div id="centro">
+        <p id="errore_numero">403</p>
+        <p id="errore_scritta">accesso proibito</p>
+        <p id="errore_spiegazione">L'accesso a questa pagina è proibito.</p>
+        <button id="bottone"><a href="index.html" style="text-decoration: none; color: white;">GO HOME</a></button>
+    </div>
+    <!-- FOOTER -->
+    <!-- \\\\\\\\\\\ -->
+
+</body>
+</html>

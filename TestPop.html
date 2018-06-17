@@ -1,0 +1,612 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Web Service - Test Page</title>
+    <meta charset="utf-8" />
+    <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="script/localConfig.js"></script>
+    <script src="script/utils.js"></script>
+    <script src="script/script.js"></script>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <!--//-<!--////////////////////////////////////////////////////-->
+
+    <style>
+        <!-- popup DIONIGI-- >
+        /*STILE POPUP*/
+        .modalWindow {
+            margin-left: 415px;
+            margin-right: 415px;
+            background-color: black;
+            z-index: 99999;
+            opacity: 0;
+            pointer-events: none;
+            width: 1089px;
+        }
+
+        .modalWindow:target {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /*STILE SFONDO*/
+        #sfondo {
+            width: 100%;
+            height: 1500px;
+            background-color: rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+        }
+        /*STILE SUPERIORE*/
+        #superiore {
+            margin: 0 auto;
+            margin-bottom: -100px;
+            background-color: black;
+            height: 100px;
+        }
+
+        #contX {
+            margin-left: 960px;
+            padding-top: 17px;
+        }
+        /*STILE SIDEBAR*/
+        #sideBar {
+            width: 181px;
+            height: 1196px;
+            background-color: black;
+            float: left;
+            display: inline-block;
+        }
+
+        .centrato {
+            width: 727px;
+            float: left;
+            display: inline-block;
+        }
+        /*STILE IMMAGINE*/
+        #immagine {
+            height: 400px;
+            margin-top: 100px;
+            background-color: red;
+        }
+
+        /*STILE PRIMI 3 DIV*/
+        #intestazione {
+            height: 90px;
+            padding-left: 52px;
+            padding-right: 20px;
+            padding-top: 5px;
+            background-color: black;
+        }
+
+            #intestazione .titolo {
+                color: red;
+                margin: 0;
+            }
+
+            #intestazione .testo {
+                color: white;
+                margin: 10px;
+            }
+        /*STILE DIV DA QUATTRO DIV*/
+        #quattro {
+            height: 100px;
+            background-color: black;
+            padding-left: 52px;
+        }
+
+        /*STILE DIV DOPPIO*/
+        #doppio {
+            margin: 0;
+            width: 282px;
+            float: left;
+            display: inline-block;
+        }
+
+            #doppio .titolo {
+                color: red;
+                margin: 0;
+                padding-top: 10px;
+            }
+
+            #doppio .testo {
+                color: white;
+                margin: 0;
+            }
+
+
+        /*STILE SPAZIATORE*/
+        #spaziatore {
+            width: 59px;
+            height: 100px;
+            background-color: black;
+            float: left;
+            display: inline-block;
+        }
+
+        /*STILE SEPARATORI*/
+        #separatore {
+            background-color: #666666;
+            margin: 0;
+        }
+
+        #separatoreP {
+            width: 333px;
+            margin-top: 120px;
+            background-color: #666666;
+            margin: -1px;
+            float: left;
+            display: inline-block;
+        }
+        /*STILE ULTIMO DIV CON PARAGRAFI ALLINEATI*/
+        #ultimo {
+            height: 200px;
+            padding-top: 5px;
+            background-color: black;
+        }
+
+            #ultimo p {
+                float: left;
+                display: inline-block;
+                margin: 0;
+            }
+
+            #ultimo .titolo {
+                color: red;
+            }
+
+            #ultimo .testo {
+                color: white;
+                padding-left: 10px;
+            }
+
+        /*STILE DIV DOPPIO (SX e DX) FONDO */
+        #doppioU {
+            padding-left: 52px;
+            margin: 0;
+            width: 282px;
+            float: left;
+            display: inline-block;
+        }
+
+            #doppioU .titolo {
+                color: red;
+                margin: 0;
+            }
+
+            #doppioU .testo {
+                color: white;
+                margin: 0;
+            }
+
+            #doppioU table tr {
+                padding-top: 50px;
+            }
+
+        #contFreccia {
+            margin-left: 50px;
+            margin-top: 270px;
+        }
+    </style>
+
+    <!--//card-->
+    <style>
+        h5 {
+            font-weight: normal;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 40%;
+            border-radius: 5px;
+        }
+
+            .card:hover {
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+
+        img {
+            border-radius: 5px 5px 0 0;
+        }
+
+        .container {
+            padding: 2px 16px;
+        }
+    </style>
+
+    <!--//pop up-->
+    <style type="text/css">
+        #cover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 5;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        #popupScreen {
+            height: 40em;
+            width: 80em;
+            margin-left: 12%;
+            margin-top: 5%;
+            position: fixed;
+            z-index: 10;
+            display: none;
+            background: white;
+            text-align: left;
+            border: 5px solid #cccccc;
+            border-radius: 10px;
+        }
+
+            #popupScreen:target, #popupScreen:target + #cover {
+                display: block;
+                opacity: 2;
+            }
+
+        .cancel {
+            display: block;
+            position: absolute;
+            top: 3px;
+            right: 2px;
+            background: rgb(245,245,245);
+            color: black;
+            height: 30px;
+            width: 35px;
+            font-size: 30px;
+            text-decoration: none;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        #titoloOverlay {
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .imgfront, .imgback {
+            height: auto;
+            width: auto;
+            max-width: 200px;
+            max-height: 50px;
+        }
+
+        #fotoPopup {
+            height: 13em;
+        }
+    </style>
+
+
+
+
+    <script>
+        function P2(i, foto) {
+            var str = '<img id="fotoPopup" src="' + makeImgPath(foto[i].file_path) + '">'
+            str += '<p>Titolo del soggetto<p/><p>' + foto[i].soggetto + '</p>'
+            str += '<p>Intestazione<p/><p>' + foto[i].intestazione + '</p>'
+            str += '<p>Identificazione del soggetto<p/><p>' + foto[i].soggetto_titolo + '</p>'
+            str += '<p>Data<p/><p>Da ' + foto[i].data_da + ' validità: ' + foto[i].data_esecuz_da_valid + '</p>'
+            str += '<p>A ' + foto[i].data_a + ' validità: ' + foto[i].data_esecuz_a_valid + '</p>'
+            str += '<p>Collocazione<p/><p>' + foto[i].collocazione + '</p>'
+            str += '<p>Numero di inventario<p/><p>' + foto[i].num_inventario + '</p>'
+            str += '<p>Fondo<p/><p>' + foto[i].fondo + '</p>'
+            str += '<p>Descrizione oggetto<p/><p>' + foto[i].soggetto_descrizione + '</p>'
+            str += '<p>Specifiche oggetto<p/><p>' + foto[i].soggetto_specifiche + '</p>'
+            str += '<p>Osservazioni<p/><p>' + foto[i].osservazioni + '</p>'
+            str += '<p>Numero di negativo<p/><p>' + foto[i].num_negativo + '</p>'
+            str += '<p>Altri formati<p/><p>' + foto[i].altri_formati + '</p>'
+            str += '<p>Serie: identificazione<p/><p>' + foto[i].id_serie + '</p>'
+            str += '<p># ordine<p/><p>' + foto[i].serie_num_ord + '</p>'
+            str += '<p>Titolo <p/><p>' + foto[i].serie_titolo + '</p>'
+            str += '<p>Condizione generica<p/><p>' + foto[i].condizione + '</p>'
+            str += '<p>Copyright<p/><p>' + foto[i].copyright + '</p>'
+
+            $("#popup").html(str);
+            $("#popup").show();
+            ///
+            var str="";
+            str+='<a href="#openModal">Click me to open modal window</a><div id="sfondo"><div id="openModal" class="modalWindow"><div id="superiore"><div id="contX">'
+            //agg
+            str+='<img src=' + "back.png" + ' /></div>'
+            str+='</div><div id="sideBar"><div id="contFreccia">';
+            //agg
+            str+='<img src='+"back.png"+' /></div>'
+            str+='</div><div class="centrato"><div id="immagine"></div>';
+            //<!--TITOLO-->
+            str+='<div id="intestazione">';
+            str+=' <p class="titolo"><b>Titolo</b> del soggetto</p>';
+            //agg
+            str+= '<p class="testo">'+ 'GHIACCIAIO DELL ADAMELLO' +'</p>';
+            str+= '</div>'
+            str+= ' <hr id="separatore" />';
+            //<!--INTESTAZIONE-->
+            str+= '<div id="intestazione">';
+            str+='<p class="titolo"><b>Intestazione</b></p>';
+            //agg
+            str+= '<p class="testo">'+ "PANORAMA DEL GHIACCIAIO DELL'ADAMELLO, TRA IL CORNO DI BEDOLE E MONTE DEIFRATI, DA CIMA VALBIOLO, DISTANTE CIRCA 15 CHILOMETRI"+'</p>';
+            str+='</div><hr id="separatore" />';
+            //<!--IDENTIFICAZIONE-->
+            str+= '<div id="intestazione">';
+            str+='<p class="titolo"><b>Identificazione</b> del soggetto</p>';
+            //agg
+            str+='<p class="testo">'+"PANORAMA DEL GHIACCIAIO DELL'ADAMELLO, TRA IL CORNO DI BEDOLE E MONTE DEI FRATI" +'</p>';
+            str+= '</div><hr id="separatore" />';
+            //<!--DATA, COLLOCAZIONE e NUMERO DI INVENTARIO-->
+            str+='<div id="quattro">';
+            //<!--DATA-->
+            str+='<div id="doppio"><p class="titolo"><b>Data</b></p><table style="width:100%"><tr><td class="titolo">da</td>';
+            //agg.
+            str+='<td class="testo" style="padding-top:10px">'+"12/01/1998"+'</td>';
+            str+='<td class="titolo">validità</td>';
+            //agg
+            str+='<td class="testo" style="padding-top:10px">'+"presunta"+'</td>';
+            str+='</tr><tr><td class="titolo">a</td>';
+            //agg
+            str+='<td class="testo" style="padding-top:10px">'+12/01/2001+'</td>';
+            str+='<td class="titolo">validità</td>';
+            //agg
+            str+= '<td class="testo" style="padding-top:10px">'+post+'</td>';
+            str+= '</tr></table></div>';
+            //<!--SPAZIATORE-->
+            str+='<div id="spaziatore"> </div>';
+            //<!--COLLOCAZIONE e NUMERO DI INVENTARIO-->
+            str+='<div div id="doppio" style="padding-left:52px">';
+            //<!--COLLOCAZIONE-->
+
+            str+='<div><p class="titolo"><b>Collocazione</b></p>';
+            //agg
+            str+='<p class="testo">'+'Album 123'+'</p></div>';
+
+            //<!--NUMERO DI INVENTARIO-->
+            str+='<div><p class="titolo"><b>Numero di inventario</b></p>';
+            str+='<p class="testo">'+53+'</p></div></div></div>';
+            str+='<hr id="separatoreP" /><hr id="separatoreP" style="margin-left:393px" />';
+            //<!--FONDO, DESCRIZIONE e SPECIFICHE OGGETTO-->
+            str+='<div id="quattro">';
+               //<!--FONDO-->
+                <div id="doppio">
+                    <p class="titolo"><b>Fondo</b></p>
+                        //agg
+                    <p class="testo">SCUOLA MEDIA ELEMENTARE DI BRONI (PAVIA)</p>
+                </div>
+                //<!--SPAZIATORE-->
+                <div id="spaziatore">
+
+                </div>
+                //<!--DESCRIZIONE e SPECIFICHE OGGETTO-->
+                <div div id="doppio" style="padding-left:52px">
+
+                    //<!--DESCRIZIONE-->
+                    <div>
+                        <p class="titolo"><b>Descrizione oggetto</b></p>
+                            //agg
+                        <p class="testo">fotografia</p>
+                    </div>
+
+                    //<!--SPECIFICHE-->
+                    <div>
+                        <p class="titolo"><b>Specifiche oggetto</b></p>
+                        //agg
+                        <p class="testo">fotografia digitale</p>
+                    </div>
+                </div>
+            </div>
+            <hr id="separatoreP" /><hr id="separatoreP" style="margin-left:393px" />
+
+            //<!--ULTIMO DIV INFORMAZIONI-->
+            <div id="ultimo">
+            //agg
+                <p class="titolo" style="padding-left: 52px;">Osservazioni</p><p class="testo">FOTOGRAFIA TAGLIATA NELL'ANGOLO SUPERIORE SINISTRO</p>
+
+                //<!--DIV LATERALE SINISTRO-->
+                <div id="doppioU">
+                    <table style="width:100%">
+                        <tr><td><p class="titolo">Numero di negativo</p><p class="testo">638</p></td></tr>
+                        <tr><td><p class="titolo">Serie identificazione</p><p class="testo">AAAAA</p></td></tr>
+                        <tr><td><p class="titolo">Titolo</p><p class="testo">TITOLO DELLE SERIE DI FOTOGRAFIE</p></td></tr>
+                        <tr><td><p class="titolo">Condizione generica</p><p class="testo">BUONA</p></td></tr>
+                    </table>
+                </div>
+
+                //<!--SPAZIATORE-->
+                <div id="spaziatore" style="height:125px;"> </div>
+
+                //<!--DIV LATERALE DESTRO-->
+                <div id="doppioU">
+                    <table style="width:100%">
+                        <tr><td><p class="titolo">Altri formati</p><p class="testo">NO</p></td></tr>
+                        <tr><td><p class="titolo"># ordine</p><p class="testo">425</p></td></tr>
+                        <tr><td><p class="titolo">vuoto</p><p class="testo">VUOTO</p></td></tr>
+                        <tr><td><p class="titolo">Copyright</p><p class="testo">LIBERO</p></td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <hr id="separatore" style="margin-top:-30px;" />
+
+
+        <!--BARRA LATERALE DESTRA-->
+        <div id="sideBar" style="margin-top: -2px;">
+            <div id="contFreccia">
+                <img src="next.png" />
+            </div>
+        </div>
+    </div>
+    </div>
+
+                    }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--////////////////////////////////////////////////////-->
+    <script>
+                        $(document).ready(function () {
+                            $("#menu").load("/cont/Navbar.html");
+                        });
+    </script>
+
+</head>
+<body>
+    <div id="menu"></div>
+    <center>
+        <div id="popupScreen">
+            <a href="#" class="cancel">
+                &times;
+            </a>
+            <div id="popup"></div>
+        </div>
+
+        <h1>Progetto "MaDe"</h1>
+        <h2>Museo della guerra Web Service - Test Page</h2>
+
+
+        <script>
+            document.write("<h2>Web Service = " + MaDe_Config.server_REST + "</h2>")
+        </script>
+        <hr />
+        <br />
+        <div id="selectors">
+            Nome: <input id="filtraNome" type="text" /><br /><br />
+        </div>
+        <button id="filtra">Filtra</button><br /><br />
+        <img src="schede.png" id="schede" height="42" width="42">
+        <img src="64.png" id="sq" height="42" width="42">
+        <img src="128.png" id="cvo" height="42" width="42">
+        <div id="bookmark1">
+        </div><br /><hr />
+    </center>
+    <center>
+        <h1>Ricerca Test Page</h1>
+        <hr />
+        <br />
+        <input id="BtAzzera" type="button" value="Azzera Filtro" onclick="azzeraRicerca()" />
+        <br />
+        <h5>NOTA: verranno visualizzate solo le foto che soddisfano TUTTI i filtri</h5>
+        <h6>(da fare...  solo le foto che soddisfano ALMENO un filtro)</h6>
+        <table border="1">
+            <tr>
+                <td>Intestazione : </td>
+                <td><input class="inputTxt" id="txtIntestazione" type="text" /></td>
+                <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtIntestazione', '#filtro_txtIntestazione', 'intestazione', true)" /></td>
+                <td class="filtro_txt" id="filtro_txtIntestazione"></td>
+            </tr>
+            <tr>
+                <td>Id_Album :</td>
+                <td>
+                    <select class="inputCb" id="cbAlbum"></select>
+                </td>
+                <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(true, 'cbAlbum', '#filtro_cbAlbum', 'collocazione', false)" /></td>
+                <td class="filtro_txt" id="filtro_cbAlbum"></td>
+            </tr>
+            <tr>
+                <td>Fondo :</td>
+                <td>
+                    <select class="inputCb" id="cbFondo"></select>
+                </td>
+                <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(true, 'cbFondo', '#filtro_cbFondo', 'fondo_provenienza', false)" /></td>
+                <td class="filtro_txt" id="filtro_cbFondo"></td>
+            </tr>
+            <tr>
+                <td>Soggetto : </td>
+                <td><input class="inputTxt" id="txtSoggetto" type="text" /></td>
+                <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtSoggetto', '#filtro_txtSoggetto', 'soggetto', true)" /></td>
+                <td class="filtro_txt" id="filtro_txtSoggetto"></td>
+            </tr>
+            <tr>
+                <td>Soggetto_titolo : </td>
+                <td><input class="inputTxt" id="txtSoggetto_titolo" type="text" /></td>
+                <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtSoggetto_titolo', '#filtro_txtSoggetto_titolo', 'soggetto_titolo', true)" /></td>
+                <td class="filtro_txt" id="filtro_txtSoggetto_titolo"></td>
+            </tr>
+            <tr>
+                <td>Serie :</td>
+                <td>
+                    <select class="inputCb" id="cbSerie"></select>
+                </td>
+                <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(true, 'cbSerie', '#filtro_cbSerie', 'serie_titolo', false)" /></td>
+                <td class="filtro_txt" id="filtro_cbSerie"></td>
+            </tr>
+            <tr>
+                <td>Periodo</td>
+                <td>
+                    <input id="dMin" type="date" /> -- <input id="dMax" type="date" />
+                    Esatta <input id="chEs" type="radio" value="esatta" onclick="chIncUncheck()" />
+                    Inclusa  <input id="chInc" type="radio" value="inclusa" onclick="chEsUncheck()" />
+                </td>
+                <td><input type="button" value="Aggiungi Filtro" onclick="filtraPeriodo()" /></td>
+            </tr>
+        </table>
+        <br />
+        <h3 id="numfoto"></h3>
+        <div id="bookmark"></div>
+
+        <input type="button" value="TEST Storage" onclick="Storage()" />
+    </center>
+    <script>
+
+        $(document).ready(function () {
+            getFotoAll();
+            riempiDropdown();
+
+        });
+        $("#schede").click(function () {
+            var nome = document.getElementById("filtraNome").value;
+            getFotoNome1(nome);
+            Popup();
+
+        });
+        $("#sq").click(function () {
+            var nome = document.getElementById("filtraNome").value;
+            getFotoNome2(nome);
+            Popup();
+
+        });
+        $("#cvo").click(function () {
+            var nome = document.getElementById("filtraNome").value;
+            getFotoNome3(nome);
+            Popup();
+
+        });
+
+        //$("#filtra").click(function () {
+        //    var nome = document.getElementById("filtraNome").value;
+        //    getFotoNome1(nome);
+        //});
+        $("#filtra").click(function () {
+            var nome = document.getElementById("filtraNome").value;
+            getFotoNome1(nome);
+            Popup();
+        });
+        $("#BtnPopupImg").click(function () {
+            $("#DivPopupImg").show();
+            $("#DivPopupDet").hide();
+        });
+        $("#BtnPopupDet").click(function () {
+            $("#DivPopupImg").hide();
+            $("#DivPopupDet").show();
+        });
+        $(document).ready(function () {
+            getFotoAll();
+            riempiDropdown();
+        });
+    </script>
+</body>
+</html>

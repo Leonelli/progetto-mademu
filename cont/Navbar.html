@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <style>
+        /*ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        p {
+            display: block;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            float:right;
+
+        }
+
+        li {
+            float: left;
+        }
+
+            li a {
+                display: block;
+                color: white;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+                li a:hover {
+                    background-color: #111;
+                }
+
+        #slideshow {
+            margin: 80px auto;
+            position: relative;
+            width: 240px;
+            height: 240px;
+            padding: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+            #slideshow > div {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                bottom: 10px;
+            }*/
+    </style>
+    <script>
+        $("#slideshow > div:gt(0)").hide();
+
+        setInterval(function () {
+            $('#slideshow > div:first')
+              .fadeOut(50)
+              .next()
+              .fadeIn(50)
+              .end()
+              .appendTo('#slideshow');
+        }, 150);
+    </script>
+</head>
+<body>
+
+    <ul>
+        <li><a class="active" href="/index.html">Home</a></li>
+        <li><a href="/galleria.html">Galleria</a></li>
+        <li><a href="/ricerca.html">Ricerca</a></li>
+        <li><a href="/priv/index.html">Area Riservata</a></li>
+        <li><a href="/info.html">Info</a></li>
+        <li><a href="/contatti.html">Contatti</a></li>
+        <li><a href="/struttura_sito.html" target="_blank">Struttura Sito</a></li>
+        <p>V 2.15</p>
+    </ul>
+
+    <!--<div id="slideshow">
+        <div>
+            <img src="http://farm6.static.flickr.com/5230/5638093881_a791e4f819_m.jpg">
+        </div>
+        <div>
+            <img src="http://farm6.static.flickr.com/5224/5658667829_2bb7d42a9c_m.jpg">
+        </div>
+    </div>-->
+
+</body>
+
+</html>

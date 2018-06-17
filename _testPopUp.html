@@ -1,0 +1,257 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Contatti|MaDe - School Cooperation</title>
+    <!-- SEO -->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!-- PUBBLICA STYLE -->
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+    <link href="../css/visual_style.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- COLLEGAMETNI jQery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- END INFO HEAD -->
+
+    <style>
+	body{
+		background-color: #64ff64;
+		margin: 0px 0px 0px 0px;
+	}
+	
+        /*STILE POPUP*/
+        .modalWindow {
+            margin-left: 415px;
+            margin-right: 415px;
+            background-color:black;
+            z-index: 99999;
+            opacity: 0;
+            pointer-events: none;
+            width: 1089px;
+            height: 800px;
+        }
+
+            .modalWindow:target {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+        /*STILE SIDEBAR*/
+        #sideBar {
+            width: 181px;
+            height: 1200px;
+            position: fixed;
+            background-color: black;
+        }
+
+        .centrato {
+            margin-left: 181px;
+            width: 727px;
+        }
+        /*STILE IMMAGINE*/
+        #immagine {
+            height: 400px;
+            background-color: red;
+        }
+
+        /*STILE PRIMI 3 DIV*/
+        #intestazione {
+            height: 90px;
+            padding-left: 52px;
+            padding-right: 20px;
+            padding-top: 5px;
+            background-color: black;
+        }
+
+            #intestazione .titolo {
+                color: red;
+                margin: 0;
+            }
+
+            #intestazione .testo {
+                color: white;
+                margin: 10px;
+            }
+        /*STILE DIV DA QUATTRO DIV*/
+        #quattro {
+            height: 100px;
+            background-color: black;
+            padding-left: 52px;
+        }
+
+        /*STILE DIV DOPPIO*/
+        #doppio {
+            margin: 0;
+            width: 282px;
+            float: left;
+            display: inline-block;
+        }
+
+            #doppio .titolo {
+                color: red;
+                margin: 0;
+                padding-top: 10px;
+            }
+
+            #doppio .testo {
+                color: white;
+                margin: 0;
+            }
+
+
+        /*STILE SPAZIATORE*/
+        #spaziatore {
+            width: 59px;
+            height: 100px;
+            background-color: black;
+            float: left;
+            display: inline-block;
+        }
+
+        /*STILE SEPARATORI*/
+        #separatore {
+            background-color: #666666;
+            margin: 0;
+        }
+
+        #separatoreP {
+            width: 333px;
+            margin-top: 120px;
+            background-color: #666666;
+            margin: -1px;
+            float: left;
+            display: inline-block;
+        }
+        /*STILE ULTIMO DIV CON PARAGRAFI ALLINEATI*/
+        #ultimo {
+            height: 200px;
+            padding-top: 5px;
+            background-color: black;
+        }
+
+            #ultimo p {
+                float: left;
+                display: inline-block;
+                margin: 0;
+            }
+
+            #ultimo .titolo {
+                color: red;
+            }
+
+            #ultimo .testo {
+                color: white;
+                padding-left: 10px;
+            }
+
+        /*STILE DIV DOPPIO (SX e DX) FONDO */
+        #doppioU {
+            padding-left: 52px;
+            margin: 0;
+            width: 282px;
+            float: left;
+            display: inline-block;
+        }
+
+            #doppioU .titolo {
+                color: red;
+                margin: 0;
+            }
+
+            #doppioU .testo {
+                color: white;
+                margin: 0;
+            }
+
+            #doppioU table tr {
+                padding-top: 50px;
+            }
+
+        #contFreccia {
+            margin-left: 50px;
+            margin-top: 400px;
+        }
+    </style>
+	<script>
+	function DisegnaPopUp(){
+		var str="";
+		str+= '<a href="#openModal">Click me to open modal window</a><div id="openModal" class="modalWindow"><div id="sideBar"><div id="contFreccia"><img src="back.png" /></div></div><div class="centrato"><div id="immagine"></div><div id="intestazione"><p class="titolo"><b>Titolo</b> del soggetto</p>'
+		//
+		str+='<p class="testo">GHIACCIAIO DELLADAMELLO</p>';
+		str+='</div><hr id="separatore" /><div id="intestazione"><p class="titolo"><b>Intestazione</b></p>'
+		//
+		str+='<p class="testo">PANORAMA DEL GHIACCIAIO DELLADAMELLO, TRA IL CORNO DI BEDOLE E MONTE DEIFRATI, DA CIMA VALBIOLO, DISTANTE CIRCA 15 CHILOMETRI</p>'
+		str+='</div><hr id="separatore" /><div id="intestazione"><p class="titolo"><b>Identificazione</b> del soggetto</p>'
+		//
+		str+='<p class="testo">PANORAMA DEL GHIACCIAIO DELLADAMELLO, TRA IL CORNO DI BEDOLE E MONTE DEI FRATI</p>'
+		str+='</div><hr id="separatore" /><div id="quattro"><div id="doppio"><p class="titolo"><b>Data</b></p><table style="width:100%"><tr><td class="titolo">da</td>'
+		//
+		str+='<td class="testo" style="padding-top:10px">12/01/1998</td>'
+		str+='<td class="titolo">validità</td>'
+		//
+		str+='<td class="testo" style="padding-top:10px">presunta</td></tr><tr><td class="titolo">a</td>'
+		//
+		str+='<td class="testo" style="padding-top:10px">12/01/2001</td>'
+		str+='<td class="titolo">validità</td>'
+		//
+		str+='<td class="testo" style="padding-top:10px">post</td>'
+		str+='</tr></table></div><div id="spaziatore"> </div><div div id="doppio" style="padding-left:52px"><div><p class="titolo"><b>Collocazione</b></p>'
+		//
+		str+='<p class="testo">Album 123</p>'
+		str+='</div><div><p class="titolo"><b>Numero di inventario</b></p>'
+		//
+		str+='<p class="testo">53</p>'
+		str+='</div></div></div><hr id="separatoreP" /><hr id="separatoreP" style="margin-left:393px" /><div id="quattro"><div id="doppio"><p class="titolo"><b>Fondo</b></p>'
+		//
+		str+='<p class="testo">SCUOLA MEDIA ELEMENTARE DI BRONI (PAVIA)</p>'
+		str+='</div><div id="spaziatore"></div><div div id="doppio" style="padding-left:52px"><div><p class="titolo"><b>Descrizione oggetto</b></p>'
+		//
+		str+='<p class="testo">fotografia</p>'
+		str+='</div><div><p class="titolo"><b>Specifiche oggetto</b></p>'
+		//
+		str+='<p class="testo">fotografia digitale</p>'
+		str+='</div></div></div><hr id="separatoreP" /><hr id="separatoreP" style="margin-left:393px" /><div id="ultimo"><p class="titolo" style="padding-left: 52px;">Osservazioni</p>'
+		//
+		str+='<p class="testo">FOTOGRAFIA TAGLIATA NELLANGOLO SUPERIORE SINISTRO</p>'
+		str+='<div id="doppioU"><table style="width:100%"><tr><td><p class="titolo">Numero di negativo</p>'
+		//
+		str+='<p class="testo">638</p>'
+		str+='</td></tr><tr><td><p class="titolo">Serie identificazione</p>'
+		//
+		str+='<p class="testo">AAAAA</p>'
+		str+='</td></tr><tr><td><p class="titolo">Titolo</p>'
+		//
+		str+='<p class="testo">TITOLO DELLE SERIE DI FOTOGRAFIE</p>'
+		str+='</td></tr><tr><td><p class="titolo">Condizione generica</p>'
+		//
+		str+='<p class="testo">BUONA</p>'
+		str+='</td></tr></table></div><div id="spaziatore" style="height:125px;"> </div><div id="doppioU"><table style="width:100%"><tr><td><p class="titolo">Altri formati</p>'
+		//
+		str+='<p class="testo">NO</p>'
+		str+='</td></tr><tr><td><p class="titolo"># ordine</p>'
+		//
+		str+='<p class="testo">425</p>'
+		str+='</td></tr><tr><td><p class="titolo">vuoto</p>'
+		//
+		str+='<p class="testo">VUOTO</p>'
+		str+='</td></tr><tr><td><p class="titolo">Copyright</p>'
+		//
+		str+='<p class="testo">LIBERO</p>'
+		str+='</td></tr></table></div></div></div><hr id="separatore" style="margin-top:-30px;" /><div id="sideBar" style="margin-left:908px; margin-top:-1068px;"><div id="contFreccia"><img src="next.png"/></div></div></div>';
+		
+		
+		$("#pop").html(str);
+	}
+	
+	
+
+	</script>
+	
+</head>
+<body onload="DisegnaPopUp()">
+	<div id="pop"></div>
+		
+	</body>
+	</html>

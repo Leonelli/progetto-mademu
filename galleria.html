@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Web Service - Test Page</title>
+    <meta charset="utf-8" />
+    <meta charset="utf-8" />
+    <link href="StyleSheet.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="script/localConfig.js"></script>
+    <script src="script/utils.js"></script>
+    <script src="script/script.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#menu").load("cont/Navbar.html");
+        });
+    </script>
+    <script>
+        var fotoG;
+        var NumFoto = 30;
+        var pag = 0;
+        function Storage(id) {
+            var displayFoto = new Array();
+            for (var i in fotoG) {
+                displayFoto.push(fotoG[i].codice)
+            }
+
+            sessionStorage.ID = id;
+            sessionStorage.idFoto = JSON.stringify(displayFoto);
+            window.open('PaginaDettaglio.html', '_blank');
+        }
+
+
+        function getFotoNome() {
+            var replaced;
+            $.get(MaDe_Config.server_REST + "/094C4271-7FB0-4070-985E-26EC39EBACF5/Dati", function (data) {
+                fotoG = data;
+                var str = '';
+                var cont = 0;
+                str += "<table>"
+                for (var i = NumFoto * pag; i < NumFoto * (pag + 1) ; i++) {
+                    if (i % 10 == 0) {
+                        str += '<tr>';
+                    }
+                    var rep = data[i].soggetto.trim();
+                    var path = makeImgPath(data[i].file_path);
+                    var ico64 = makeIco64Path(data[i].file_path);
+                    str += '<div id="foto"><td class="txtCenter"><a onclick="Storage(' + (cont+ (pag*NumFoto)) + ')"  target="_blank" ><img src="' + ico64 + '" ></a></td></div>';
+                    cont++;
+                }
+                if (i % 10 == 0) {
+                    str += '</tr>';
+                }
+
+                /////////////////////////////
+                var numpag = data.length / NumFoto;
+                for (var i = 0; i < numpag; i++) {
+                    str += '<input type="button" value="' + (i) + '" onclick="CambiaPag(' + i + ')" />'
+                }
+
+                $("#bookmark").html(str);
+            });
+        }
+
+        function CambiaPag(num) {
+            pag = num;
+            getFotoNome();
+        }
+
+    </script>
+</head>
+<body style="margin: 0 auto;">
+    <div id="menu"></div>
+    <br />
+    <center>
+        <h1>Progetto "MaDe"</h1>
+        <h2>Museo della guerra Web Service - Test Page</h2>
+        <script>
+            document.write("<h2>Web Service = " + MaDe_Config.server_REST + "</h2>")
+        </script>
+        <hr />
+        <br />
+        <div id="selectors">
+        </div>
+        <div id="bookmark">
+        </div><br /><hr />
+    </center>
+
+    <script>
+        $(document).ready(function () {
+            getFotoNome();
+        });   
+    </script>
+</body>
+</html>

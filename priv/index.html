@@ -1,0 +1,566 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Web Service - Test Page</title>
+    <meta charset="utf-8" />
+    <meta charset="utf-8" />
+    <link href="StyleSheet.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="/script/localConfig.js"></script>
+    <script src="/script/utils.js"></script>
+      <script>
+        $(document).ready(function () {
+            $("#menu").load("/cont/Navbar.html");
+        });
+    </script>
+    <script>
+        var foto1;
+        var indice;
+
+        function Storage(id) {
+            var displayFoto = new Array();
+            for (var i in foto1) {
+                displayFoto.push(foto[i].codice)
+            }
+            sessionStorage.ID = id;
+            sessionStorage.idFoto = JSON.stringify(displayFoto);
+            window.open('PaginaDettaglio.html', '_blank');
+        }
+
+        function Storage1(id) {
+            var displayFoto = new Array();
+            for (var i in foto) {
+                if (foto[i].visibile) 
+                    displayFoto.push(foto[i].codice)
+            }
+            sessionStorage.ID = id;
+            sessionStorage.idFoto = JSON.stringify(displayFoto);
+            window.open('PaginaDettaglio.html', '_blank');
+        }
+
+        function Data_ISO10(d) {
+            return d.toISOString().slice(0, 10);
+        }
+
+        function getFotoNome(nome) {
+            var percorso = "/Dati/All/Contiene/" + nome;
+            var replaced;
+            $.get(MaDe_Config.server_REST + percorso, function (data) {
+                foto1 = data;
+                var str = '';
+                var cont = 0;
+                str += "<table>"
+                str += "<tr><th>Storage</th><th>Codice</th><th>ID Album</th><th>ID Serie</th><th>ID Fondo</th><th>Percorso</th><th>Ordine</th><th>Intestazione</th><th>Soggetto</th><th>Titolo Soggetto</th><th>Data di Esecuzione da</th><th>Validità Data di Esecuzione da</th><th>Data da</th><th>Data di Esecuzione a</th><th>Validità Data di Esecuzione a</th><th>Data a</th><th>Titolo Serie</th><th>Fondo Provenienza</th><th>Luogo Fondo Provenienza</th><th>Foto</th></tr>"
+                for (var i in data) {
+                    var rep = data[i].soggetto.trim().replace(nome.toUpperCase(), "<b>" + nome.toUpperCase() + "</b>");
+                    var rep1 = data[i].intestazione.replace(nome.toUpperCase(), "<b>" + nome.toUpperCase() + "</b>");
+                    var rep2 = data[i].soggetto_titolo.replace(nome.toUpperCase(), "<b>" + nome.toUpperCase() + "</b>");
+                    var path = makeImgPath(data[i].file_path);
+                    var ico64 = makeIco64Path(data[i].file_path);
+
+                    str += '<tr>';
+                    str += '<td><input type="button" value="TEST Storage" onclick="Storage(' + cont + ')" /></td>'
+                    str += '<td class="txtCenter">' + data[i].codice + '</td>';
+                    str += '<td class="txtCenter">' + data[i].id_album + '</td>';
+                    str += '<td class="txtCenter">' + data[i].id_serie + '</td>';
+                    str += '<td class="txtCenter">' + data[i].id_fondo + '</td>';
+                    str += '<td class="txtCenter">' + data[i].file_path + '</td>';
+                    str += '<td class="txtCenter">' + data[i].serie_num_ord + '</td>';
+                    str += '<td class="txtCenter">' + rep1 + '</td>';
+                    str += '<td>' + rep + '</td>';
+                    str += '<td class="txtCenter">' + rep2 + '</td>';
+                    str += '<td class="txtCenter">' + data[i].data_esecuz_da + '</td>';
+                    str += '<td class="txtCenter">' + data[i].data_esecuz_da_valid + '</td>';
+                    str += '<td class="txtCenter">' + data[i].data_da.slice(0, 10) + '</td>';
+                    str += '<td class="txtCenter">' + data[i].data_esecuz_a + '</td>';
+                    str += '<td class="txtCenter">' + data[i].data_esecuz_a_valid + '</td>';
+                    str += '<td class="txtCenter">' + data[i].data_a.slice(0, 10) + '</td>';
+                    str += '<td class="txtCenter">' + data[i].serie_titolo + '</td>';
+                    str += '<td class="txtCenter">' + data[i].fondo_provenienza + '</td>';
+                    str += '<td class="txtCenter">' + data[i].fondo_provenienza_luogo + '</td>';
+                    str += '<td class="txtCenter"><a href="' + path + '" target="_blank" ><img src="' + ico64 + '" ></a></td>';
+                    str += '<tr>';
+                    cont++;
+                }
+                str += "</table>"
+
+                $("#bookmark").html(str);
+            });
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        function showContatore() {
+            iCnt = 0;
+            for (var i in foto) {
+                if (foto[i].visibile)
+                    iCnt++;
+            }
+            $("#numfoto").html("Trovate " + iCnt + " foto");
+        }
+
+        function azzeraRicerca() {
+            $("#bookmark2").hide();
+            $(".inputTxt").val("");
+            $(".inputCb").val("-1");
+            $(".filtro_txt").html("")
+
+            for (var i in foto) {
+                foto[i].visibile = true;
+            }
+            showContatore();
+        }
+
+        function getFotoAll() {
+            $.get(MaDe_Config.server_REST + "/094C4271-7FB0-4070-985E-26EC39EBACF5/Dati", function (data) {
+                foto = data;
+                azzeraRicerca();
+            });
+        }
+
+        function riempiDropdownSingola(percorso, _filtro, txt) {
+            $.get(MaDe_Config.server_REST + percorso, function (data) {
+                var str1 = '<option value="-1"></option>';
+                var tmp = [data[0][_filtro]];
+                var presente = false;
+                str1 += '<option value="' + data[0][_filtro] + '">' + data[0][_filtro] + ' </option>'
+                for (var i = 0; i < data.length; i++) {
+                    for (var j in tmp)
+                        if (data[i][_filtro] == tmp[j])
+                            presente = true;
+                    if (!presente) {
+                        str1 += '<option value="' + data[i][_filtro] + '">' + data[i][_filtro] + ' </option>'
+                        tmp[tmp.length] = data[i][_filtro]
+                    }
+                    presente = false;
+                }
+                $(txt).html(str1);
+            });
+        }
+
+        function riempiDropdown() {
+            riempiDropdownSingola("/094C4271-7FB0-4070-985E-26EC39EBACF5/Dati", "collocazione", "#cbAlbum");
+            riempiDropdownSingola("/094C4271-7FB0-4070-985E-26EC39EBACF5/Dati", "soggetto_descrizione", "#cbSoggetto_descrizione");
+            riempiDropdownSingola("/094C4271-7FB0-4070-985E-26EC39EBACF5/Dati", "soggetto_specifiche", "#cbSoggetto_specifiche");
+            riempiDropdownSingola("/094C4271-7FB0-4070-985E-26EC39EBACF5/Dati", "condizione", "#cbCondizione");
+            riempiDropdownSingola("/094C4271-7FB0-4070-985E-26EC39EBACF5/Dati", "data_esecuz_da_valid", "#cbData_esecuz_da_valid");
+            riempiDropdownSingola("/094C4271-7FB0-4070-985E-26EC39EBACF5/Dati", "acquisizione_tipo", "#cbAcquisizione_tipo");
+            riempiDropdownSingola("/094C4271-7FB0-4070-985E-26EC39EBACF5/Dati", "acquisizione_data_valid", "#cbAcquisizione_data_valid");
+            riempiDropdownSingola("/094C4271-7FB0-4070-985E-26EC39EBACF5/Dati", "copyright", "#cbCopyright");
+            riempiDropdownSingola("/094C4271-7FB0-4070-985E-26EC39EBACF5/Dati", "fondo_provenienza", "#cbFondo");
+            riempiDropdownSingola("/094C4271-7FB0-4070-985E-26EC39EBACF5/Dati", "serie_titolo", "#cbSerie");
+        }
+
+        function Filtra(combobox, txt, txtF, _filtro, includes) {
+            if (!combobox) {
+                s = $(txt).val().toUpperCase();
+                $(txtF).append(s + ' ');
+                for (var i in foto)
+                    if (foto[i].visibile) {
+                        if (includes) trovato = (foto[i][_filtro].includes(s));
+                        else trovato = (foto[i][_filtro] == s);
+                        if (!trovato)
+                            foto[i].visibile = false;
+                    }
+                showContatore();
+                Tabella();
+            }
+            else {
+                var ix = document.getElementById(txt).selectedIndex;
+                var opt = document.getElementById(txt).options;
+                $(txtF).append(opt[ix].text);
+                for (var i in foto) {
+                    if (foto[i].visibile) {
+                        if (opt[ix].text == "null" && foto[i][_filtro] == null)
+                            trovato = true;
+                        else
+                            trovato = (foto[i][_filtro] == opt[ix].text);
+                        if (!trovato) {
+                            foto[i].visibile = false;
+                        }
+                    }
+                }
+                showContatore();
+                Tabella();
+            }
+        }
+        function FiltraDataDa() {
+            sdMin = $("#txtData_da").val();
+
+            for (var i in foto) {
+                if (foto[i].visibile) {
+                    fdmin = Data_ISO10(new Date(foto[i].data_da));
+                    trovato = fdmin >= sdMin;
+                    if (!trovato) {
+                        foto[i].visibile = false;
+                    }
+                }
+            }
+            showContatore();
+            Tabella();
+        }
+        function FiltraDataA() {
+            sdMax = $("#txtData_a").val();
+
+            for (var i in foto) {
+                if (foto[i].visibile) {
+                    fdmax = Data_ISO10(new Date(foto[i].data_a));
+                    trovato = fdmax <= sdMax;
+                    if (!trovato) {
+                        foto[i].visibile = false;
+                    }
+                }
+            }
+            showContatore();
+            Tabella();
+        }
+
+        function Tabella() {
+            var str = '';
+            var cont = 0;
+            str += "<table>"
+            str += "<tr><th>Storage</th><th>codice</th><th>intestazione</th><th>id_album</th><th>tipo_media</th><th>tiposcheda</th><th>archivio</th><th>fondo</th><th>collocazione</th><th>num_inventario</th><th>soggetto</th><th>soggetto_titolo</th><th>soggetto_descrizione</th><th>soggetto_specifiche</th><th>num_negativo</th><th>altri_formati</th><th>id_serie</th><th>serie_titolo</th><th>serie_num_ord</th><th>condizione</th><th>data_da</th><th>data_esecuz_da</th><th>data_esecuz_da_valid</th><th>data_a</th><th>data_esecuz_a</th><th>data_esecuz_a_valid</th><th>osservazioni</th><th>fondo_provenienza</th><th>fondo_provenienza_luogo</th><th>acquisizione_data</th><th>acquisizione_data_valid</th><th>acquisizione_tipo</th><th>copyright</th><th>inventari</th><th>committenza</th><th>tipo_supporto</th><th>identificativo_volume</th><th>annotazioni</th><th>Foto</th></tr>"
+            for (var i in foto) {
+                if (foto[i].visibile) {
+                    var path = makeImgPath(foto[i].file_path);
+                    var ico64 = makeIco64Path(foto[i].file_path);
+
+                    str += '<tr>';
+                    str += '<td><input type="button" value="TEST Storage" onclick="Storage1(' + cont + ')" /></td>'
+                    str += '<td class="txtCenter">' + foto[i].codice + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].intestazione + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].id_album + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].tipo_media + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].tiposcheda + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].archivio + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].fondo + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].collocazione + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].num_inventario + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].soggetto + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].soggetto_titolo + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].soggetto_descrizione + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].soggetto_specifiche + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].num_negativo + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].altri_formati + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].id_serie + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].serie_titolo + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].serie_num_ord + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].condizione + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].data_da.slice(0, 10) + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].data_esecuz_da + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].data_esecuz_da_valid + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].data_a.slice(0, 10) + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].data_esecuz_a + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].data_esecuz_a_valid + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].osservazioni + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].fondo_provenienza + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].fondo_provenienza_luogo + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].acquisizione_data + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].acquisizione_data_valid + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].acquisizione_tipo + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].copyright + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].inventari + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].committenza + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].tipo_supporto + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].identificativo_volume + '</td>';
+                    str += '<td class="txtCenter">' + foto[i].annotazioni + '</td>';
+                    str += '<td class="txtCenter"><a href="' + path + '" target="_blank" ><img src="' + ico64 + '" ></a></td>';
+                    str += '<tr>';
+                    cont++;
+                }
+            }
+            str += "<table>"
+            $("#bookmark2").html(str);
+            $("#bookmark2").show();
+        }
+    </script>
+</head>
+<body>
+    <div id="menu"></div>
+    <center>
+        <h1>Progetto "MaDe"</h1>
+        <h2>Museo della guerra Web Service - Test Page</h2>
+        <script>
+            document.write("<h2>Web Service = " + MaDe_Config.server_REST + "</h2>")
+        </script>
+        <hr />
+        <br />
+        <div id="selectors">
+            Nome: <input id="filtraNome" type="text" /><br /><br />
+        </div>
+        <button id="filtra">Filtra</button><br /><br />
+    </center>
+        <div id="bookmark">
+           </div><br /><hr />
+            <center>
+                <div id="menu"></div>
+                <h1>Ricerca Test Page</h1>
+                <hr />
+                <br />
+                <input id="BtAzzera" type="button" value="Azzera Filtro" onclick="azzeraRicerca()" />
+                <br />
+                <h5>NOTA: verranno visualizzate solo le foto che soddisfano TUTTI i filtri</h5>
+                <h6>(da fare...  solo le foto che soddisfano ALMENO un filtro)</h6>
+                <table border="1">
+                    <tr>
+                        <td>Codice : </td>
+                        <td><input class="inputTxt" id="txtCodice" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtCodice', '#filtro_txtCodice', 'codice', false)" /></td>
+                        <td class="filtro_txt" id="filtro_txtCodice"></td>
+                    </tr>
+                    <tr>
+                        <td>Intestazione : </td>
+                        <td><input class="inputTxt" id="txtIntestazione" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtIntestazione', '#filtro_txtIntestazione', 'intestazione', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtIntestazione"></td>
+                    </tr>
+                    <tr>
+                        <td>Id_Album :</td>
+                        <td>
+                            <select class="inputCb" id="cbAlbum"></select>
+                        </td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(true, 'cbAlbum', '#filtro_cbAlbum', 'collocazione', false)" /></td>
+                        <td class="filtro_txt" id="filtro_cbAlbum"></td>
+                    </tr>
+                    <tr>
+                        <td>Tipo_media : </td>
+                        <td><input class="inputTxt" id="txtTipo_media" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtTipo_media', '#filtro_txtTipo_media', 'tipo_media', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtTipo_media"></td>
+                    </tr>
+                    <tr>
+                        <td>Tiposcheda : </td>
+                        <td><input class="inputTxt" id="txtTiposcheda" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtTiposcheda', '#filtro_txtTiposcheda', 'tiposcheda', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtTiposcheda"></td>
+                    </tr>
+                    <tr>
+                        <td>Archivio : </td>
+                        <td><input class="inputTxt" id="txtArchivio" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#filtro_txtTiposcheda', '#filtro_txtArchivio', 'archivio', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtArchivio"></td>
+                    </tr>
+                    <tr>
+                        <td>Fondo :</td>
+                        <td>
+                            <select class="inputCb" id="cbFondo"></select>
+                        </td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(true, 'cbFondo', '#filtro_cbFondo', 'fondo_provenienza', false)" /></td>
+                        <td class="filtro_txt" id="filtro_cbFondo"></td>
+                    </tr>
+                    <tr>
+                        <td>Collocazione : </td>
+                        <td><input class="inputTxt" id="txtCollocazione" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtCollocazione', '#filtro_txtCollocazione', 'collocazione', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtCollocazione"></td>
+                    </tr>
+                    <tr>
+                        <td>Num_inventario : </td>
+                        <td><input class="inputTxt" id="txtNum_inventario" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtNum_inventario', '#filtro_txtNum_inventario', 'num_inventario', false)" /></td>
+                        <td class="filtro_txt" id="filtro_txtNum_inventario"></td>
+                    </tr>
+                    <tr>
+                        <td>Soggetto : </td>
+                        <td><input class="inputTxt" id="txtSoggetto" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtSoggetto', '#filtro_txtSoggetto', 'soggetto', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtSoggetto"></td>
+                    </tr>
+                    <tr>
+                        <td>Soggetto_titolo : </td>
+                        <td><input class="inputTxt" id="txtSoggetto_titolo" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtSoggetto_titolo', '#filtro_txtSoggetto_titolo', 'soggetto_titolo', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtSoggetto_titolo"></td>
+                    </tr>
+                    <tr>
+                        <td>Soggetto_descrizione :</td>
+                        <td>
+                            <select class="inputCb" id="cbSoggetto_descrizione"></select>
+                        </td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(true, 'cbSoggetto_descrizione', '#filtro_cbSoggetto_descrizione', 'soggetto_descrizione', false)" /></td>
+                        <td class="filtro_txt" id="filtro_cbSoggetto_descrizione"></td>
+                    </tr>
+                    <tr>
+                        <td>Soggetto_specifiche :</td>
+                        <td>
+                            <select class="inputCb" id="cbSoggetto_specifiche"></select>
+                        </td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(true, 'cbSoggetto_specifiche', '#filtro_cbSoggetto_specifiche', 'soggetto_specifiche', false)" /></td>
+                        <td class="filtro_txt" id="filtro_cbSoggetto_specifiche"></td>
+                    </tr>
+                    <tr>
+                        <td>Num_negativo : </td>
+                        <td><input class="inputTxt" id="txtNum_negativo" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtNum_negativo', '#filtro_txtNum_negativo', 'num_negativo', false)" /></td>
+                        <td class="filtro_txt" id="filtro_txtNum_negativo"></td>
+                    </tr>
+                    <tr>
+                        <td>Altri_formati : </td>
+                        <td><input class="inputTxt" id="txtAltri_formati" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtAltri_formati', '#filtro_txtAltri_formati', 'altri_formati', false)" /></td>
+                        <td class="filtro_txt" id="filtro_txtAltri_formati"></td>
+                    </tr>
+                    <tr>
+                        <td>Serie :</td>
+                        <td>
+                            <select class="inputCb" id="cbSerie"></select>
+                        </td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(true, 'cbSerie', '#filtro_cbSerie', 'serie_titolo', false)" /></td>
+                        <td class="filtro_txt" id="filtro_cbSerie"></td>
+                    </tr>
+                    <tr>
+                        <td>Serie_titolo : </td>
+                        <td><input class="inputTxt" id="txtSerie_titolo" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtSerie_titolo', '#filtro_txtSerie_titolo', 'serie_titolo', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtSerie_titolo"></td>
+                    </tr>
+                    <tr>
+                        <td>Serie_num_ord : </td>
+                        <td><input class="inputTxt" id="txtSerie_num_ord" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtSerie_num_ord', '#filtro_txtSerie_num_ord', 'serie_num_ord', false)" /></td>
+                        <td class="filtro_txt" id="filtro_txtSerie_num_ord"></td>
+                    </tr>
+                    <tr>
+                        <td>Condizione :</td>
+                        <td>
+                            <select class="inputCb" id="cbCondizione"></select>
+                        </td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(true, 'cbCondizione', '#filtro_cbCondizione', 'condizione', false)" /></td>
+                        <td class="filtro_txt" id="filtro_cbCondizione"></td>
+                    </tr>
+                    <tr>
+                        <td>Data_da : </td>
+                        <td><input class="inputTxt" id="txtData_da" type="date" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="FiltraDataDa()" /></td>
+                        <td class="filtro_txt" id="filtro_txtData_da"></td>
+                    </tr>
+                    <tr>
+                        <td>Data_esecuz_da : </td>
+                        <td><input class="inputTxt" id="txtData_esecuz_da" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtData_esecuz_da', '#filtro_txtData_esecuz_da', 'data_esecuz_da', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtData_esecuz_da"></td>
+                    </tr>
+                    <tr>
+                        <td>Data_esecuz_da_valid :</td>
+                        <td>
+                            <select class="inputCb" id="cbData_esecuz_da_valid"></select>
+                        </td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(true, 'cbData_esecuz_da_valid', '#filtro_cbData_esecuz_da_valid', 'data_esecuz_da_valid', false)" /></td>
+                        <td class="filtro_txt" id="filtro_cbData_esecuz_da_valid"></td>
+                    </tr>
+                    <tr>
+                        <td>Data_a : </td>
+                        <td><input class="inputTxt" id="txtData_a" type="date" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="FiltraDataA()" /></td>
+                        <td class="filtro_txt" id="filtro_txtData_a"></td>
+                    </tr>
+                    <tr>
+                        <td>Data_esecuz_a : </td>
+                        <td><input class="inputTxt" id="txtData_esecuz_a" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtData_esecuz_a', '#filtro_txtData_esecuz_a', 'data_esecuz_a', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtData_esecuz_a"></td>
+                    </tr>
+                    <tr>
+                        <td>Data_esecuz_a_valid : </td>
+                        <td><input class="inputTxt" id="txtData_esecuz_a_valid" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtData_esecuz_a_valid', '#filtro_txtData_esecuz_a_valid', 'aata_esecuz_a_valid', false)" /></td>
+                        <td class="filtro_txt" id="filtro_txtData_esecuz_a_valid"></td>
+                    </tr>
+                    <tr>
+                        <td>Osservazioni : </td>
+                        <td><input class="inputTxt" id="txtOsservazioni" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtOsservazioni', '#filtro_txtOsservazioni', 'osservazioni', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtOsservazioni"></td>
+                    </tr>
+                    <tr>
+                        <td>Fondo_provenienza : </td>
+                        <td><input class="inputTxt" id="txtFondo_provenienza" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtFondo_provenienza', '#filtro_txtFondo_provenienza', 'fondo_provenienza', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtFondo_provenienza"></td>
+                    </tr>
+                    <tr>
+                        <td>Fondo_provenienza_luogo : </td>
+                        <td><input class="inputTxt" id="txtFondo_provenienza_luogo" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtFondo_provenienza_luogo', '#filtro_txtFondo_provenienza_luogo', 'fondo_provenienza_luogo', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtFondo_provenienza_luogo"></td>
+                    </tr>
+                    <tr>
+                        <td>Acquisizione_data : </td>
+                        <td><input class="inputTxt" id="txtAcquisizione_data" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtAcquisizione_data', '#filtro_txtAcquisizione_data', 'acquisizione_data', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtAcquisizione_data"></td>
+                    </tr>
+                    <tr>
+                        <td>Acquisizione_data_valid :</td>
+                        <td>
+                            <select class="inputCb" id="cbAcquisizione_data_valid"></select>
+                        </td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(true, 'cbAcquisizione_data_valid', '#filtro_cbAcquisizione_data_valid', 'acquisizione_data_valid', false)" /></td>
+                        <td class="filtro_txt" id="filtro_cbAcquisizione_data_valid"></td>
+                    </tr>
+                    <tr>
+                        <td>Acquisizione_tipo :</td>
+                        <td>
+                            <select class="inputCb" id="cbAcquisizione_tipo"></select>
+                        </td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(true, 'cbAcquisizione_tipo', '#filtro_cbAcquisizione_tipo', 'acquisizione_tipo', false)" /></td>
+                        <td class="filtro_txt" id="filtro_cbAcquisizione_tipo"></td>
+                    </tr>
+                    <tr>
+                        <td>Copyright :</td>
+                        <td>
+                            <select class="inputCb" id="cbCopyright"></select>
+                        </td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(true, 'cbCopyright', '#filtro_cbCopyright', 'copyright', false)" /></td>
+                        <td class="filtro_txt" id="filtro_cbCopyright"></td>
+                    </tr>
+                    <tr>
+                        <td>Inventari : </td>
+                        <td><input class="inputTxt" id="txtInventari" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtInventari', '#filtro_txtInventari', 'inventari', false)" /></td>
+                        <td class="filtro_txt" id="filtro_txtInventari"></td>
+                    </tr>
+                    <tr>
+                        <td>Committenza : </td>
+                        <td><input class="inputTxt" id="txtCommittenza" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtCommittenza', '#filtro_txtCommittenza', 'committenza', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtCommittenza"></td>
+                    </tr>
+                    <tr>
+                        <td>Tipo_supporto : </td>
+                        <td><input class="inputTxt" id="txtTipo_supporto" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtTipo_supporto', '#filtro_txtTipo_supporto', 'tipo_supporto', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtTipo_supporto"></td>
+                    </tr>
+                    <tr>
+                        <td>Identificativo_volume : </td>
+                        <td><input class="inputTxt" id="txtIdentificativo_volume" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtIdentificativo_volume', '#filtro_txtIdentificativo_volume', 'identificativo_volume', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtIdentificativo_volume"></td>
+                    </tr>
+                    <tr>
+                        <td>Annotazioni : </td>
+                        <td><input class="inputTxt" id="txtAnnotazioni" type="text" /></td>
+                        <td><input type="button" value="Aggiungi Filtro" onclick="Filtra(false, '#txtAnnotazioni', '#filtro_txtAnnotazioni', 'annotazioni', true)" /></td>
+                        <td class="filtro_txt" id="filtro_txtAnnotazioni"></td>
+                    </tr>
+                </table>
+                <br />
+                <h3 id="numfoto"></h3>
+                <div id="bookmark2">
+                </div><br /><hr />
+            </center>
+
+            <script>
+                $("#filtra").click(function () {
+                    var nome = document.getElementById("filtraNome").value;
+                    getFotoNome(nome);
+                });
+                $(document).ready(function () {
+                    getFotoAll();
+                    riempiDropdown();
+                });
+            </script>
+</body>
+</html>

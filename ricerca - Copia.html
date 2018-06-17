@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="it">
+<head> 
+<meta charset="UTF-8">
+<title>Museo | MaDe - School Cooperation</title>
+<!-- SEO --> 
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- PUBBLICA STYLE -->
+<link href="css/css.css" rel="stylesheet" type="text/css">
+<link href="css/lightbox.css" rel="stylesheet">
+<!-- COLLEGAMETNI jQery -->
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+<!-- END INFO HEAD -->
+<script> $(document).ready(function () { $(".sidebar").load("/cont/sidebar.html"); }) </script>
+
+<script src="script/localConfig.js"></script>
+<script src="script/utils.js"></script>
+<script src="script/script%20-%20Copia.js"></script>
+<script src="script/lightbox.js"></script>
+
+</head>
+<body>
+ 
+<!-- HEADER -->
+<!-- \\\\\\\\\\\ -->
+
+<div id="menu" style="background-color: #3A3A3A;">
+    <div class="container" style="padding-top:0px; height:60px;">
+        <div class="logo_cont"></div>
+        <div class="menu_link">
+            <ul>
+                 <li><a href="/index.html">Home</a></li>
+                 <li><a class="select" href="/ricerca.html">Ricerca</a></li>
+                 <li><a href="/museo.html">Il museo</a></li>
+                 <li><a href="/archivio.html">L'archivio</a></li>
+                 <li><a  href="/notizie.html">Notizie</a></li>
+                 <li><a href="/contatti.html">Contatti</a></li>
+                <li class="login_label"><a href="/priv/index.html">LOGIN</a></li>
+            </ul>
+
+        </div>
+    </div>    
+</div>
+	
+
+<!-- CONT --> 
+<!-- \\\\\\\\\\\ -->
+    <div id="full_width" class="pd_top">  
+		<div class="container">
+          
+          	<!-- spazio per la ricerca -->  
+          	<div class="one_third" style="background-color: #4D4D4D; text-align: left; height: 100vh; width: 31.333%; ">
+          	
+				<h3> RICERCA SEMPLICE </h3>
+        		<div class="space" style="height: 10px;"></div>
+         		<div id="barra_ricerca" style="padding-left: 30px;">
+                        <input id="filtraNome" type="text" class="text_input" placeholder="Ricerca immagine"><input id="filtraSemplice" type="submit" value="" class="buttom">       
+                </div>
+         					
+				<h3 style="margin-top: 12px;"> RICERCA AVANZATA </h3>
+                <p class="p_base descrizione" style="padding-left: 30px; padding-right: 30px;">Migliora la tua ricerca con i filtri della ricerca avanzata.Non è obbligatoria la compilazione di tutti i campi.</p>	
+                <input id="txtIntestazione" class="input_ricerca" type="text" name="intestazione" placeholder="Parola chiave nell'intestazione">
+    
+                <!-- Ricerca data da -->
+                <div>
+                    <p class="labelricerca">Data da:</p>
+                    <select id="cbDataDa_Giorno" class="drop-downList">
+                        <option selected value="-1">GG</option>
+                    </select>
+                    <select id="cbDataDa_Mese" class="drop-downList">
+                        <option selected value="-1">MM</option>
+                    </select>
+                    <select id="cbDataDa_Anno" class="drop-downList">
+                        <option selected value="-1">ANNO</option>
+                    </select>    
+                  </div>
+                
+                  <!-- Ricerca data a -->
+                  <div>
+                      <p class="labelricerca">Data a:</p>
+                      <select id="cbDataA_Giorno" class="drop-downList">
+                          <option selected value="-1">GG</option>
+                      </select>
+                      <select id="cbDataA_Mese" class="drop-downList">
+                          <option selected value="-1">MM</option>
+                      </select>
+                      <select id="cbDataA_Anno" class="drop-downList">
+                          <option selected value="-1">ANNO</option>
+                      </select>
+                  </div>
+
+                  <input id="txtSoggetto" class="input_ricerca" type="text" name="intestazione" placeholder="Identificazione del soggetto">
+                  <input id="txtSoggettoTitolo" class="input_ricerca" type="text" name="intestazione" placeholder="Titolo del soggetto">
+
+                  <!--  RESTITUISCO LA FONTE -->
+                  <div>
+                      <p class="labelricerca">Fondo: </p>
+                      <select id="cbFondo" class="drop-menu">
+                          <option selected value="-1">Nome</option>
+                      </select>
+                  </div>
+
+                  <!--  RESTITUISCO LA SERIE -->
+                  <div>
+                      <p class="labelricerca">Serie: </p>
+                      <select id="cbSerie" class="drop-menu">
+                          <option selected value="-1">Nome</option>
+                      </select>
+                  </div>
+                  
+                  <!--checkbox-->
+                  <div>
+                      <p class="labelricerca" style="width:266px; font-size:15px;">Includi immagini con campi mancanti:</p>
+                      <input type="checkbox" id="c1" name="cc" />
+                  </div>
+                 
+                  <div>
+                      <!-- BOTTONI RICERCA -->
+                      <button id="bottoneFiltra" type="button">FILTRA</button>
+                      <button id="bottoneAnnFiltra" type="button">AZZERA FILTRI</button>
+                  </div>
+				      <div class="space" style="height: 30px;"></div>
+			</div>
+          	  		
+          	<!-- risultati della ricerca -->
+          	<div class="one_third_two" style="margin-left: 20px; width: 65.333%">
+          		<div id="int_pgric">
+          		
+          			<div id="risultati_pg">
+						<p></p> 
+					</div>
+          		
+					<div id="mod">
+						<img id="btnCards" src="image/theme/ricerca/schede.png"/>
+						<img id="btn128" src="image/theme/ricerca/ico128.png"/>
+						<img id="btn64" style="margin-right: 0px;"src="image/theme/ricerca/ico64.png"/>
+					</div>
+					
+					<div class="space" style="height: 15px;">
+					<hr style="display: block;">	
+				</div>
+			</div>
+         	
+          	<div id="risultati" class="one_third_two" style="width:100%; padding-top: 0px;"> </div>	
+			<div class="space" style="height: 30px"></div>			
+            
+		</div>	
+    </div>
+  
+
+
+<!-- FOOTER -->
+<!-- \\\\\\\\\\\ -->
+    <div id="footer"><p>Cophyright © 2017 | Museo storico della guerra - Rovereto (TN) | Privacy Policy</p> </div>
+    
+    
+<!--SCRIPT JQUERY-->
+   <script>
+        $(document).ready(function () {
+            var vis = '64'
+            $("#btn64").click(function () {
+                vis = '64';
+                pag = 0;
+                var nome = document.getElementById("filtraNome").value;
+                filtraSemplice(nome, vis, '#risultati', '#risultati_pg');
+                filtraAvanzata('#cbDataDa_Giorno', '#cbDataDa_Mese', '#cbDataDa_Anno', '#cbDataA_Giorno', '#cbDataA_Mese', '#cbDataA_Anno', '#cbFondo', '#cbSerie', '#txtIntestazione', '#txtSoggetto', '#txtSoggettoTitolo', vis, '#risultati', 'c1', '#risultati_pg')
+            });
+            $("#btn128").click(function () {
+                vis = '128';
+                pag = 0;
+                var nome = document.getElementById("filtraNome").value;
+                filtraSemplice(nome, vis, '#risultati', '#risultati_pg');
+                filtraAvanzata('#cbDataDa_Giorno', '#cbDataDa_Mese', '#cbDataDa_Anno', '#cbDataA_Giorno', '#cbDataA_Mese', '#cbDataA_Anno', '#cbFondo', '#cbSerie', '#txtIntestazione', '#txtSoggetto', '#txtSoggettoTitolo', vis, '#risultati', 'c1', '#risultati_pg')
+            });
+            $("#btnCards").click(function () {
+                vis = 'cards';
+                pag = 0;
+                var nome = document.getElementById("filtraNome").value;
+                filtraSemplice(nome, vis, '#risultati', '#risultati_pg');
+                filtraAvanzata('#cbDataDa_Giorno', '#cbDataDa_Mese', '#cbDataDa_Anno', '#cbDataA_Giorno', '#cbDataA_Mese', '#cbDataA_Anno', '#cbFondo', '#cbSerie', '#txtIntestazione', '#txtSoggetto', '#txtSoggettoTitolo', vis, '#risultati', 'c1', '#risultati_pg')
+            });
+            
+            $("#filtraSemplice").click(function () {
+                pag = 0;
+                var nome = document.getElementById("filtraNome").value;
+                filtraSemplice(nome, vis, '#risultati', '#risultati_pg');
+            });
+            $("#bottoneFiltra").click(function () {
+                pag = 0;
+                filtraAvanzata('#cbDataDa_Giorno', '#cbDataDa_Mese', '#cbDataDa_Anno', '#cbDataA_Giorno', '#cbDataA_Mese', '#cbDataA_Anno', '#cbFondo', '#cbSerie', '#txtIntestazione', '#txtSoggetto', '#txtSoggettoTitolo', vis, '#risultati', 'c1', '#risultati_pg')
+            });
+            $("#bottoneAnnFiltra").click(function () {
+                azzeraRicerca('#cbDataDa_Giorno', '#cbDataDa_Mese', '#cbDataDa_Anno', '#cbDataA_Giorno', '#cbDataA_Mese', '#cbDataA_Anno', '#cbFondo', '#cbSerie', '#txtIntestazione', '#txtSoggetto', '#txtSoggettoTitolo', '#risultati')
+            });
+            riempiDropdown('#cbDataDa_Giorno', '#cbDataDa_Mese', '#cbDataDa_Anno', '#cbDataA_Giorno', '#cbDataA_Mese', '#cbDataA_Anno', '#cbFondo', '#cbSerie');
+
+            getFotoAll('#cbDataDa_Giorno', '#cbDataDa_Mese', '#cbDataDa_Anno', '#cbDataA_Giorno', '#cbDataA_Mese', '#cbDataA_Anno', '#cbFondo', '#cbSerie', '#txtIntestazione', '#txtSoggetto', '#txtSoggettoTitolo', '#risultati');
+            getExtName(vis, '#risultati', '#risultati_pg', '#filtraNome');
+            
+        });
+    </script>
+</body>
+</html>

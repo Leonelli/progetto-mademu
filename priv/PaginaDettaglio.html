@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Web Service - Test Page</title>
+    <meta charset="utf-8" />
+    <meta charset="utf-8" />
+    <link href="StyleSheet.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="localConfig.js"></script>
+    <script src="utils.js"></script>
+    <script>
+        var listaCodici;
+        var i;
+        
+        function mostra() {
+            listaCodici = JSON.parse(sessionStorage.idFoto);
+            i = JSON.parse(sessionStorage.ID);
+            dettaglio(listaCodici[i]);
+        }
+
+        function dettaglio(c) {
+            var percorso = "/Dati/Codice/" + c;
+            $.get("http://daas.marconirovereto.it:8080" + percorso, function (data) {               
+                var str = '';
+                str += "<table>"
+                var rep = data[0].soggetto.trim();
+                var path = makeImgPath(data[0].file_path);
+                var ico64 = makeIco64Path(data[0].file_path);
+                str += '<div>'
+                str += '<img class="txtCenter"><a href="' + path + '" target="_blank" ><img src="' + ico64 + '" ></a></>';
+                str += '<ul>'
+                str += '<td>' + rep + '</td>';
+                str += '<li class="txtCenter">' + data[0].data_da.slice(0, 10) + '</li>';
+                str += '<li class="txtCenter">' + data[0].data_a.slice(0, 10) + '</li>';
+                str += '<li class="txtCenter">' + data[0].serie_titolo + '</li>';
+                str += '<li class="txtCenter">' + data[0].fondo_provenienza + '</li>';
+                str += '<li class="txtCenter">' + data[0].fondo_provenienza_luogo + '</li>';
+                str += '</ul>'
+                str += '</div>'
+                str += "</table>"
+
+                $("#bookmark").html(str);
+            });
+        }
+    </script>
+</head>
+<body>
+    <center>
+        <h1>Progetto "MaDe"</h1>
+        <h2>Museo della guerra Web Service - Test Page</h2>
+        <script>
+            document.write("<h2>Web Service = " + MaDe_Config.server_REST + "</h2>")
+        </script>
+        <hr />
+        <br />
+
+        <div>
+            <img />
+        </div>
+
+        <div id="selectors">
+        </div>
+        <button id="indietro"><</button><br /><br />
+        <button id="avanti">></button><br /><br />
+        <div id="bookmark">
+        </div><br /><hr />
+    </center>
+
+    <script>
+        $(document).ready(function () {
+            mostra();
+        });
+        $("#avanti").click(function () {
+            if (i < listaCodici.length-1) {
+                i++;
+                dettaglio(listaCodici[i]);
+            }
+        });
+        $("#indietro").click(function () {
+            if (i > 0) {
+                i--;
+                dettaglio(listaCodici[i]);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Contatti|MaDe - School Cooperation</title>
+    <!-- SEO -->
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <!-- PUBBLICA STYLE -->
+    <link href="../css/style.css" rel="stylesheet" type="text/css">
+    <link href="../css/visual_style.css" rel="stylesheet" type="text/css" media="screen">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!---<meta http-equiv="Refresh" content="5;url=index.html">-->
+    <style>
+        /*TITOLO*/
+        h3 {
+            text-transform: uppercase;
+            color: red;
+            font-size: 32px;
+            margin: 0 auto;
+        }
+
+        /*SEPARATORE*/
+        #separatore {
+            width: 700px;
+            height: 2px;
+            background-color: black;
+            border: 0;
+            padding-top: 2px;
+        }
+
+        /*STILE TESTI*/
+        .testoDestra {
+            text-align: right;
+            color: darkgrey;
+        }
+
+        /*BARRA LARGHE*/
+        #barraLarga {
+            width: 400px;
+            height: 30px;
+            background-color: darkgrey;
+            border: 0;
+            font-size: 12px;
+            padding-left: 5px;
+        }
+        /*BARRA STRETTA*/
+        #barraStretta{
+            width:149px;
+            height: 30px;
+            background-color: darkgrey;
+            border: 0;
+            font-size: 12px;
+            padding-left: 5px;
+        }
+
+        /*STILE MENU A TENDINA PICCOLO*/
+        #menuTend {
+            display: inline-block;
+            float: left;
+            width: auto;
+            height:30px;
+        }
+
+        /*STILE TABELLA LATO DX*/
+        #tabellaDx {
+            display: inline-block;
+            float: left;
+            margin-left: 20px;
+            margin-right: 7px;
+        }
+
+        /*STILE MENU A TENDINA MEDI*/
+        #tendMed {
+            width: 153px;
+            height:30px;
+        }
+
+        /*STILE SCRITTE DENTRO SELECT*/
+        td select {
+            font-size: 12px;
+        }
+    </style>
+    <!-- COLLEGAMETNI jQery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- END INFO HEAD -->
+</head>
+<body>
+    <!--DIV CENTRALE-->
+    <center style="margin-top:40px">
+        <div>
+            <h3>ricerca avanzata</h3>
+        </div>
+        <hr id="separatore" />
+        <table>
+            <tr>
+                <td class="testoDestra">Nome file</td>
+                <td><input type="text" id="barraLarga"></td>
+            </tr>
+            <tr>
+                <td class="testoDestra">Intestazione</td>
+                <td><input type="text" id="barraLarga"></td>
+            </tr>
+            <tr>
+                <td class="testoDestra">Fondo</td>
+                <td>
+                    <select id="barraLarga">
+                        <option>Nome del fondo</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="testoDestra">Collocazione</td>
+                <td id="menuTend">
+                    <input type="text" id="barraStretta">
+                </td>
+                <td id="tabellaDx" class="testoDestra">Inventario</td>
+                <td id="menuTend">
+                    <input type="text" id="barraStretta">
+                </td>
+            </tr>
+            <tr>
+                <td class="testoDestra">Identificazione soggetto</td>
+                <td><input type="text" id="barraLarga"></td>
+            </tr>
+            <tr>
+                <td class="testoDestra">Titolo soggetto</td>
+                <td><input type="text" id="barraLarga"></td>
+            </tr>
+            <tr>
+                <td class="testoDestra">Data: da</td>
+                <td id="menuTend">
+                    <select>
+                        <option>GG</option>
+                    </select>
+                    <select>
+                        <option>MM</option>
+                    </select>
+                    <select>
+                        <option>ANNO</option>
+                    </select>
+                </td>
+                <td id="tabellaDx" class="testoDestra" style="margin-left:42px;">Data: a</td>
+                <td id="menuTend">
+                    <select>
+                        <option>GG</option>
+                    </select>
+                    <select>
+                        <option>MM</option>
+                    </select>
+                    <select>
+                        <option>ANNO</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="testoDestra">Validità: da</td>
+                <td id="menuTend">
+                    <select id="tendMed">
+                        <option>GG</option>
+                    </select>
+                </td>
+                <td id="tabellaDx" class="testoDestra" style="margin-left:23px">Validità: a</td>
+                <td id="menuTend">
+                    <select id="tendMed">
+                        <option>GG</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="testoDestra">Oggetto: descrizione</td>
+                <td id="menuTend">
+                    <select id="tendMed">
+                        <option></option>
+                    </select>
+                </td>
+                <td id="tabellaDx" class="testoDestra">Specifiche</td>
+                <td id="menuTend">
+                    <select id="tendMed">
+                        <option></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="testoDestra">Osservazioni</td>
+                <td><input type="text" id="barraLarga"></td>
+            </tr>
+            <tr>
+                <td class="testoDestra">Numero di negativo</td>
+                <td id="menuTend"><input type="text" id="barraStretta"></td>
+                <td id="tabellaDx" class="testoDestra" style="margin-left:36px">Altri formati</td>
+                <td id="menuTend">
+                    <select id="tendMed">
+                        <option>GG</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="testoDestra">Fondo di provenienza</td>
+                <td><input type="text" id="barraLarga"></td>
+            </tr>
+            <tr>
+                <td class="testoDestra">Serie: identificazione</td>
+                <td id="menuTend">
+                    <select id="tendMed">
+                        <option>GG</option>
+                    </select>
+                </td>
+                <td id="tabellaDx" class="testoDestra" style="margin-left:36px">#ordine</td>
+                <td id="menuTend">
+                    <select id="tendMed">
+                        <option>GG</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="testoDestra">Serie: titolo</td>
+                <td>
+                    <select id="barraLarga">
+                        <option>Nome della serie</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="testoDestra">Condizione generica</td>
+                <td>
+                    <select id="barraLarga">
+                        <option>Condizione</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td class="testoDestra">Copiright</td>
+                <td>
+                    <select id="barraLarga">
+                        <option>Copiright</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <hr id="separatore" />
+
+    </center>
+</body>
+
+</html>
